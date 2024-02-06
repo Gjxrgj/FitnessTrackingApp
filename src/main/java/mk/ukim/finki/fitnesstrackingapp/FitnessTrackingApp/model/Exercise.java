@@ -34,4 +34,12 @@ public class Exercise {
     @Column(name = "type", nullable = false)
     private String type;
 
+    public Exercise(String name, int reps, int sets, int weight, int time, String type) {
+        this.name = name;
+        this.reps = reps;
+        this.sets = sets;
+        this.weight = weight;
+        this.time = time;
+        this.type = type;
+    }
 }

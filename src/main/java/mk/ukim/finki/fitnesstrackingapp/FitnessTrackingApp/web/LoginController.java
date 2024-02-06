@@ -1,9 +1,6 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.AuthenticationRequest;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.AuthenticationService;
@@ -21,7 +18,8 @@ public class LoginController {
     private final AuthenticationService service;
 
     @GetMapping
-    public String loginPage() {
+    public String loginPage(HttpServletResponse response) {
+
         return "login";
     }
 
@@ -29,12 +27,12 @@ public class LoginController {
     public String authenticate(
             @RequestParam String name,
             @RequestParam String password,
-            HttpSession session,
-            HttpServletResponse response
+            HttpServletResponse response,
+            HttpSession session
     ){
         AuthenticationRequest request = new AuthenticationRequest(name, password);
-        String jwtToken = service.authenticate(request).getToken();
-
+        service.authenticate(request, response).getToken();
+        session.setAttribute("user", userService.findByName(name));
 
 
         return "redirect:/home";

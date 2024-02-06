@@ -35,4 +35,12 @@ public class Ingredient {
     @Column(name = "fats", nullable = false)
     private int fats;
 
+    public Ingredient(String name, int calories, int quantity, int protein, int carbs, int fats) {
+        this.name = name;
+        this.calories = calories;
+        this.quantity = quantity;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.fats = fats;
+    }
 }

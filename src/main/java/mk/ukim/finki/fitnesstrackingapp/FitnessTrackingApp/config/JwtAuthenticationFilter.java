@@ -2,6 +2,7 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -27,14 +28,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
+
+        Cookie[] cookies = request.getCookies();
+        String jwt = null;
+
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("Authorization".equals(cookie.getName())) {
+                    jwt = cookie.getValue().trim();
+                    break;
+                }
+            }
+        }
         final String userName;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+        if (jwt == null){
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authHeader.substring(7);
+
+
         userName = jwtService.extractUsername(jwt);
         if(userName != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);

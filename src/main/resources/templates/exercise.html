@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise List</title>
+</head>
+<body>
+
+<h2>Exercise List</h2>
+
+<ul th:each="exercise : ${exerciseList}">
+    <li>
+        <strong th:text="${exercise.name}"></strong><br>
+        Type: <span th:text="${exercise.type}"></span><br>
+        <div th:if="${exercise.type.equalsIgnoreCase('Cardio')}">
+            Time: <span th:text="${exercise.time}"> minutes</span><br>
+        </div>
+        <div th:if="${exercise.type.equalsIgnoreCase('Bodybuilding')}">
+            Sets: <span th:text="${exercise.sets}"></span><br>
+            Reps: <span th:text="${exercise.reps}"></span><br>
+            Weight: <span th:text="${exercise.weight}"></span><br>
+        </div>
+    </li>
+</ul>
+<a href="/exercises/addExercise">Add exercise</a>
+
+</body>
+</html>

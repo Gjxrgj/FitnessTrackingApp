@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredient List</title>
+</head>
+<body>
+
+<h2>Ingredient List</h2>
+
+<ul th:each="ingredient : ${ingredientList}">
+    <li>
+        <strong th:text="${ingredient.name}"></strong><br>
+        Calories: <span th:text="${ingredient.calories}"></span><br>
+        Quantity: <span th:text="${ingredient.quantity}"></span><br>
+        Protein: <span th:text="${ingredient.protein}"></span><br>
+        Fats: <span th:text="${ingredient.fats}"></span><br>
+        Carbs: <span th:text="${ingredient.carbs}"></span><br>
+    </li>
+</ul>
+<a href="/ingredients/addIngredient">Add ingredient</a>
+
+</body>
+</html>

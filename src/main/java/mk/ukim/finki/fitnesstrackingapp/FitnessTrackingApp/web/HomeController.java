@@ -16,10 +16,7 @@ public class HomeController {
 
     @GetMapping
     public String getHomePage(Model model, HttpServletRequest request, HttpServletResponse response){
-        System.out.println("THKA");
-        System.out.println(request.getHeader("Authorization"));
-        System.out.println("TUKA");
-        System.out.println(response.getHeader("Authorization"));
+
         return "home";
     }
 }

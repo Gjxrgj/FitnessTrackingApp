@@ -3,7 +3,6 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.AuthenticationService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.RegisterRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
