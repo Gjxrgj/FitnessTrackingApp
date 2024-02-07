@@ -23,10 +23,12 @@ public class MealServiceImpl implements MealService {
     private final PersonalizedIngredientService personalizedIngredientService;
     @Override
     public List<Meal> getAll() {
-        return mealRepository.findAll();
+        List<Meal> meals = mealRepository.findAllByOrderByNameAsc();
+        return meals;
     }
 
     @Override
+    @Transactional
     public void addMeal(String name, String type) {
      mealRepository.save(new Meal(name, type));
     }

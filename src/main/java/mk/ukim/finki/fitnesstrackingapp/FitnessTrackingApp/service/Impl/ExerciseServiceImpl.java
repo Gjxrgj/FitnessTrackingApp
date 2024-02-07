@@ -7,6 +7,7 @@ import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.ExerciseServi
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,13 +20,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public void addExercise(Exercise exercise) {
-        if (exercise.getType().equalsIgnoreCase("Cardio")){
-            exercise.setReps(0);
-            exercise.setSets(0);
-            exercise.setWeight(0);
-        }else{
-            exercise.setTime(0);
-        }
         exerciseRepository.save(exercise);
+    }
+
+    @Override
+    public Optional<Exercise> findById(Long id) {
+        return exerciseRepository.findById(id);
     }
 }

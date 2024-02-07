@@ -19,7 +19,11 @@ public class LoginController {
 
     @GetMapping
     public String loginPage(HttpServletResponse response) {
-
+        Cookie cookie = new Cookie("Authorization", null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
         return "login";
     }
 
@@ -28,8 +32,7 @@ public class LoginController {
             @RequestParam String name,
             @RequestParam String password,
             HttpServletResponse response,
-            HttpSession session
-    ){
+            HttpSession session){
         AuthenticationRequest request = new AuthenticationRequest(name, password);
         service.authenticate(request, response).getToken();
         session.setAttribute("user", userService.findByName(name));

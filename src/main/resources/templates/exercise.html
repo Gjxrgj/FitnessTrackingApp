@@ -12,13 +12,20 @@
     <li>
         <strong th:text="${exercise.name}"></strong><br>
         Type: <span th:text="${exercise.type}"></span><br>
-        <div th:if="${exercise.type.equalsIgnoreCase('Cardio')}">
-            Time: <span th:text="${exercise.time}"> minutes</span><br>
-        </div>
-        <div th:if="${exercise.type.equalsIgnoreCase('Bodybuilding')}">
-            Sets: <span th:text="${exercise.sets}"></span><br>
-            Reps: <span th:text="${exercise.reps}"></span><br>
-            Weight: <span th:text="${exercise.weight}"></span><br>
+        <div th:if="${workoutID != null}">
+            <form action="/exercises/addExerciseToWorkout" method="post">
+                <input type="hidden" name="workoutID" th:value="${workoutID}">
+                <input type="hidden" name="exerciseID" th:value="${exercise.eID}">
+                <div th:if="${exercise.getType().equalsIgnoreCase('bodybuilding')}">
+                    Reps: <input type="number" name="reps">
+                    Sets: <input type="number" name="sets">
+                    Weight: <input type="number" name="weight">
+                </div>
+                <div th:if="${exercise.getType().equalsIgnoreCase('cardio')}">
+                    Time: <input type="number" name="time">
+                </div>
+                <button type="submit">Add Exercise To Workout</button>
+            </form>
         </div>
     </li>
 </ul>

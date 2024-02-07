@@ -11,4 +11,5 @@ import java.util.List;
 public interface MealRepository extends JpaRepository<Meal, Long> {
     @Override
     List<Meal> findAll();
+    List<Meal> findAllByOrderByNameAsc();
 }

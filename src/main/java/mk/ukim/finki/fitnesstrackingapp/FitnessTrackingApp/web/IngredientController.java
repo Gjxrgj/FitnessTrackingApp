@@ -50,7 +50,7 @@ public class IngredientController {
     public String addIngredientToMeal(@RequestParam Long mealID,
                                       @RequestParam Long ingredientID,
                                       @RequestParam int quantity){
-        mealService.AddIngredientToMeal(mealID, ingredientID, quantity);
+        mealService.AddIngredientToMeal(ingredientID, mealID, quantity);
 
         return "redirect:/meals";
     }
