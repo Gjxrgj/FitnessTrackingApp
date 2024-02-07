@@ -23,9 +23,6 @@ public class Ingredient {
     @Column(name = "calories", nullable = false)
     private int calories;
 
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
-
     @Column(name = "protein", nullable = false)
     private int protein;
 
@@ -35,10 +32,9 @@ public class Ingredient {
     @Column(name = "fats", nullable = false)
     private int fats;
 
-    public Ingredient(String name, int calories, int quantity, int protein, int carbs, int fats) {
+    public Ingredient(String name, int calories, int protein, int carbs, int fats) {
         this.name = name;
         this.calories = calories;
-        this.quantity = quantity;
         this.protein = protein;
         this.carbs = carbs;
         this.fats = fats;

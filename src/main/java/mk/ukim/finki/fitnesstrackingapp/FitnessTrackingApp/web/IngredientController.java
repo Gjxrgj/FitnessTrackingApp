@@ -2,40 +2,57 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web;
 
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Ingredient;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.IngredientService;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.MealService;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/ingredients")
 @RequiredArgsConstructor
 public class IngredientController {
     private final IngredientService ingredientService;
-    @GetMapping
-    public String getIngredientsPage(Model model){
+    private final MealService mealService;
+
+    @GetMapping()
+    public String getIngredients(Model model){
         model.addAttribute("ingredientList", ingredientService.getAll());
+
+        return "ingredients";
+    }
+    @GetMapping("/{mealID}")
+    public String getIngredientsPage(@PathVariable(required = false) Long mealID, Model model){
+        model.addAttribute("ingredientList", ingredientService.getAll());
+        model.addAttribute("mealID", mealID);
+
         return "ingredients";
     }
 
     @GetMapping("/addIngredient")
     public String getAddIngredientPage(){
+
         return "addIngredient";
     }
     @PostMapping("/addIngredient")
     public String addIngredient(@RequestParam String name,
                                 @RequestParam int calories,
-                                @RequestParam int quantity,
                                 @RequestParam int protein,
                                 @RequestParam int carbs,
                                 @RequestParam int fats
 
                                 ){
-        ingredientService.addIngredient(new Ingredient(name, calories, quantity, protein, carbs, fats));
+        ingredientService.addIngredient(new Ingredient(name, calories, protein, carbs, fats));
         return "redirect:/ingredients";
+    }
+
+    @PostMapping("/addIngredientToMeal")
+    public String addIngredientToMeal(@RequestParam Long mealID,
+                                      @RequestParam Long ingredientID,
+                                      @RequestParam int quantity){
+        mealService.AddIngredientToMeal(mealID, ingredientID, quantity);
+
+        return "redirect:/meals";
     }
 
 }

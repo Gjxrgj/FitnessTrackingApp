@@ -11,11 +11,26 @@
 <ul th:each="ingredient : ${ingredientList}">
     <li>
         <strong th:text="${ingredient.name}"></strong><br>
+        Per 100 g <br>
         Calories: <span th:text="${ingredient.calories}"></span><br>
-        Quantity: <span th:text="${ingredient.quantity}"></span><br>
         Protein: <span th:text="${ingredient.protein}"></span><br>
         Fats: <span th:text="${ingredient.fats}"></span><br>
         Carbs: <span th:text="${ingredient.carbs}"></span><br>
+
+
+        <div th:if="${mealID != null}">
+            <form action="/ingredients/addIngredientToMeal" method="post">
+                <input type="hidden" name="mealID" th:value="${mealID}">
+                <input type="hidden" name="ingredientID" th:value="${ingredient.iID}">
+
+                Quantity: <input type="number" name="quantity">
+
+
+
+                <button type="submit">Add Ingredient to Meal</button>
+            </form>
+        </div>
+
     </li>
 </ul>
 <a href="/ingredients/addIngredient">Add ingredient</a>

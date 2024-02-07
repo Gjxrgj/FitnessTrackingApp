@@ -13,26 +13,25 @@
 <h1>User Profile</h1>
 
 <div>
-    <label>Name:</th:block></label>
-    <span id="name"><th:block th:text="${session.user.getName()}"></span>
+    <label>Name:</label>
+    <span id="name"><th:block th:text="${session.user.getName()}"></th:block></span>
 </div>
 
 <div>
     <label>Age:</label>
-    <span id="age">25</span>
+    <span id="age"><th:block th:text="${session.user.getAge()}"></th:block></span>
 </div>
 
 <div>
     <label>Height:</label>
-    <span id="height">180 cm</span>
+    <span id="height"><th:block th:text="${session.user.getHeight()}"></th:block></span>
 </div>
 
 <div>
     <label>Weight:</label>
-    <span id="weight">75 kg</span>
+    <span id="weight"><th:block th:text="${session.user.getWeight()}"></th:block></span>
 </div>
 
-<!-- Add any additional content or styling here -->
 
 </body>
 </html>
