@@ -9,4 +9,5 @@ public interface WorkoutService {
     void addWorkout(String name);
 
     void addExerciseToWorkout(Long workoutID, Long exerciseID, Integer sets, Integer reps, Integer weight, Integer time);
+    Workout getById(Long workoutID);
 }

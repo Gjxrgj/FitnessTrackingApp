@@ -2,6 +2,7 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class Meal {
     @Column(name = "mID")
     private Long mID;
 
+    @ManyToOne
+    private User user;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -30,7 +34,6 @@ public class Meal {
 
     @ManyToMany
     private List<PersonalizedIngredient> ingredients;
-
 
     public Meal(String name, String type) {
         this.name = name;

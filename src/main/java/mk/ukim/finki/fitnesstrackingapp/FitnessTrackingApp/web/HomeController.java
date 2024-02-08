@@ -2,6 +2,7 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @GetMapping
-    public String getHomePage(Model model, HttpServletRequest request, HttpServletResponse response){
-
+    public String getHomePage(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("day", user.getToday());
         return "home";
     }
 }

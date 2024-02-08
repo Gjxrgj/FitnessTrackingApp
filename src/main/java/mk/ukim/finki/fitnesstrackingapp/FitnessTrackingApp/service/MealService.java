@@ -8,4 +8,5 @@ public interface MealService {
     List<Meal> getAll();
     void addMeal(String name, String type);
     void AddIngredientToMeal(Long ingredientId, Long mealID, int quantity);
+    Meal getById(Long mealID);
 }

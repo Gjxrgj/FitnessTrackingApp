@@ -1,48 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-
+    <title>Workouts List</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-
-    <style>
-        /* Custom styles for the content */
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .content {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
+
 <div th:replace="appBar"></div>
 
-<div class="content">
-    <h2 class="text-center">Today: <span th:text="${day.getDate()}"></span></h2>
-    <div class="mb-4">
-        <h4>Exercises</h4>
-        <ul class="list-group">
-            <li class="list-group-item" th:each="exercise : ${day.getWorkouts()}" th:text="${exercise.getName()}"></li>
-        </ul>
-    </div>
-    <div>
-        <h4>Workouts</h4>
-        <ul class="list-group">
-            <li class="list-group-item" th:each="meal : ${day.getMeals()}" th:text="${meal.getName()}"></li>
-        </ul>
-    </div>
+<div class="container mt-4">
+    <h2>Workouts List</h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Workout Name</th>
+            <th>Exercises</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workout : ${workoutList}">
+            <td><span th:text="${workout.name}"></span></td>
+            <td>
+                <a th:href="@{/workouts/{workoutID}(workoutID=${workout.wID})}" class="btn btn-primary">View Exercises</a>
+            </td>
+            <td>
+                <a th:href="@{/exercises/{workoutID}(workoutID=${workout.wID})}" class="btn btn-success">Add Exercise to Workout</a><br>
+                <a th:href="@{/day/workout/{workoutID}(workoutID=${workout.wID})}" class="btn btn-info">Add Workout to Day</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/workouts/addWorkout" class="btn btn-primary" type="button">Add Workout</a>
 </div>
 
 <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
@@ -55,5 +51,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

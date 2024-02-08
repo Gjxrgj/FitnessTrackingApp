@@ -2,6 +2,7 @@ package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wID")
     private Long wID;
+
+    @ManyToOne
+    private User user;
 
     @Column(name="name")
     private String name;

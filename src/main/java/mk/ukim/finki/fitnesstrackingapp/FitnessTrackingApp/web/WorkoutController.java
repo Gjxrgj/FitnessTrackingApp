@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.WorkoutService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/workouts")
@@ -18,6 +15,11 @@ public class WorkoutController {
     public String getWorkoutsPage(Model model){
         model.addAttribute("workoutList", workoutService.getAll());
         return "workouts";
+    }
+    @GetMapping("/{workoutID}")
+    public String getWorkoutsPage(@PathVariable Long workoutID, Model model){
+        model.addAttribute("workout", workoutService.getById(workoutID));
+        return "workoutInfo";
     }
     @GetMapping("/addWorkout")
     public String getAddWorkoutPage(){

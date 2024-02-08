@@ -1,10 +1,12 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.Impl;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Exercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.PersonalizedExercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Workout;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.WorkoutRepository;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.ExerciseService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.PersonalizedExerciseService;
@@ -12,12 +14,15 @@ import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.WorkoutServic
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final ExerciseService exerciseService;
+    private final HttpSession session;
     private final PersonalizedExerciseService personalizedExerciseService;
+
     @Override
     public List<Workout> getAll() {
         return workoutRepository.findAll();
@@ -25,15 +30,19 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     @Override
     public void addWorkout(String name) {
-        workoutRepository.save(new Workout(name));
+        workoutRepository.save(
+                Workout.builder()
+                        .user((User) session.getAttribute("user"))
+                        .name(name)
+                        .build());
     }
 
     @Override
     @Transactional
     public void addExerciseToWorkout(Long workoutId, Long exerciseID, Integer sets, Integer reps, Integer weight, Integer time) {
-        if(time == null){
+        if (time == null) {
             time = 0;
-        }else{
+        } else {
             sets = 0;
             reps = 0;
             weight = 0;
@@ -45,5 +54,10 @@ public class WorkoutServiceImpl implements WorkoutService {
         Workout workout = workoutRepository.findById(workoutId).orElseThrow();
         workout.addExercise(personalizedExercise);
         workoutRepository.save(workout);
+    }
+
+    @Override
+    public Workout getById(Long workoutID) {
+        return workoutRepository.findById(workoutID).orElseThrow();
     }
 }

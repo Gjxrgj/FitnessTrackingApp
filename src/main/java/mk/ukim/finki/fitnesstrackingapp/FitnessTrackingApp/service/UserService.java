@@ -1,7 +1,14 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service;
 
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Day;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 
+import java.util.List;
+
 public interface UserService {
-    public User findByName(String name);
+    User findByName(String name);
+    List<User> listALl();
+    void save(User user);
+
+
 }

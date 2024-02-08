@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Day;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class User implements UserDetails{
 
     @Column(name = "weight")
     private int weight;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Day> days = new ArrayList<>();
 
    @Enumerated(EnumType.STRING)
     private Role role;
@@ -76,6 +81,13 @@ public class User implements UserDetails{
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addDay(Day day){
+        days.add(day);
+    }
+    public Day getToday(){
+        return days.get(days.size()-1);
     }
 }
 

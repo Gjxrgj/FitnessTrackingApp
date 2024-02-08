@@ -13,6 +13,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseRepository exerciseRepository;
+
+
     @Override
     public List<Exercise> getAll() {
         return exerciseRepository.findAll();
