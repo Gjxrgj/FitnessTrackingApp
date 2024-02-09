@@ -1,6 +1,7 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.Impl;
 
 import io.swagger.v3.oas.annotations.servers.Server;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Ingredient;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.IngredientsRepository;
@@ -18,6 +19,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    @Transactional
     public void addIngredient(Ingredient ingredient) {
         ingredientsRepository.save(ingredient);
     }

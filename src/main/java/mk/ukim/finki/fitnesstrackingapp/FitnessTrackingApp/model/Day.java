@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "_Day")
+@Table(name = "_day")
 public class Day {
 
     @Id
@@ -23,12 +23,21 @@ public class Day {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "meals", nullable = false)
-
+    @Column(name = "meals")
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "dayhasmeal",
+            joinColumns = @JoinColumn(name = "dID"),
+            inverseJoinColumns = @JoinColumn(name = "mID")
+    )
     private List<Meal> meals;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "dayhasworkout",
+            joinColumns = @JoinColumn(name = "dID"),
+            inverseJoinColumns = @JoinColumn(name = "wID")
+    )
     private List<Workout> workouts;
 
     public Day() {

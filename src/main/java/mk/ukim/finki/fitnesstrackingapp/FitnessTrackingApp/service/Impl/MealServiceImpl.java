@@ -49,16 +49,20 @@ public class MealServiceImpl implements MealService {
         PersonalizedIngredient personalizedIngredient = new PersonalizedIngredient(ingredient, quantity);
         personalizedIngredientService.addPersonalizedIngredient(personalizedIngredient);
         meal.addIngredient(personalizedIngredient);
-        int quantForMeal = 0;
-        for(PersonalizedIngredient ingr : meal.getIngredients()){
-            quantForMeal += ingr.getQuantity();
-        }
-        meal.setQuantity(quantForMeal);
         mealRepository.save(meal);
     }
 
     @Override
     public Meal getById(Long mealID) {
         return mealRepository.findById(mealID).orElseThrow();
+    }
+
+    @Override
+    @Transactional
+    public void removeMealFromDay(Long mealID, Long ingredientID) {
+        PersonalizedIngredient ingredient = personalizedIngredientService.getById(ingredientID).orElseThrow();
+        Meal meal = mealRepository.findById(mealID).orElseThrow();
+        meal.getIngredients().remove(ingredient);
+        mealRepository.save(meal);
     }
 }

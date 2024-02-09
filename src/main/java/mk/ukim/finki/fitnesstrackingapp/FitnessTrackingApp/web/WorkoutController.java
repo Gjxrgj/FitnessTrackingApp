@@ -30,5 +30,11 @@ public class WorkoutController {
         workoutService.addWorkout(name);
         return "redirect:/workouts";
     }
+    @PostMapping("/removeExercise/{workoutID}")
+    public String removeExercise(@PathVariable Long workoutID,
+                                 @RequestParam Long exerciseID){
+        workoutService.removeExercise(workoutID, exerciseID);
+        return "redirect:/workouts/" + workoutID;
+    }
 
 }

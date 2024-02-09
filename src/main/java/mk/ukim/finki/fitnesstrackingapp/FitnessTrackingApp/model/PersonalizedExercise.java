@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "personalizedexercise")
 public class PersonalizedExercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "peID")
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "eID")
     private Exercise exercise;
 
     @Column(name = "reps")

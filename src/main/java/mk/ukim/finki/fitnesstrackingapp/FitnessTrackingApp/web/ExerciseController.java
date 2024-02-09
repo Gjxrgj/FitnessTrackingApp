@@ -49,7 +49,7 @@ public class ExerciseController {
 
     ){
         workoutService.addExerciseToWorkout(workoutID,exerciseID, sets, reps, weight, time);
-        return "redirect:/exercises";
+        return "redirect:/workouts";
     }
 
 }

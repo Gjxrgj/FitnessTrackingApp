@@ -33,4 +33,9 @@ public class MealController {
         return "redirect:/meals";
     }
 
+    @PostMapping("/removeIngredient/{mealID}")
+    public String removeMealFromDay(@PathVariable Long mealID, @RequestParam Long ingredientID){
+        mealService.removeMealFromDay(mealID, ingredientID);
+        return "redirect:/meals/info/" + mealID;
+    }
 }

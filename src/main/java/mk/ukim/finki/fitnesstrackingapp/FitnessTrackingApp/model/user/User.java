@@ -1,10 +1,12 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Day;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.WorkoutProgram;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +45,23 @@ public class User implements UserDetails{
     private int weight;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "userhasdays",
+            joinColumns = @JoinColumn(name = "uID"),
+            inverseJoinColumns = @JoinColumn(name = "dID")
+    )
     private List<Day> days = new ArrayList<>();
 
-   @Enumerated(EnumType.STRING)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "userhasprogram",
+            joinColumns = @JoinColumn(name = "uID"),
+            inverseJoinColumns = @JoinColumn(name = "wpID")
+    )
+    private List<WorkoutProgram> workoutPrograms= new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "row")
     private Role role;
 
     @Override
@@ -83,11 +99,12 @@ public class User implements UserDetails{
         return true;
     }
 
-    public void addDay(Day day){
+    public void addDay(Day day) {
         days.add(day);
     }
-    public Day getToday(){
-        return days.get(days.size()-1);
+
+    public Day getToday() {
+        return days.get(days.size() - 1);
     }
 }
 

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Meal")
+@Table(name = "meal")
 public class Meal {
 
     @Id
@@ -21,6 +21,7 @@ public class Meal {
     private Long mID;
 
     @ManyToOne
+    @JoinColumn(name = "uID")
     private User user;
 
     @Column(name = "name", nullable = false)
@@ -29,10 +30,12 @@ public class Meal {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "quantity")
-    private int quantity = 0;
-
     @ManyToMany
+    @JoinTable(
+            name = "mealhasingredient",
+            joinColumns = @JoinColumn(name = "mID"),
+            inverseJoinColumns = @JoinColumn(name = "iID")
+    )
     private List<PersonalizedIngredient> ingredients;
 
     public Meal(String name, String type) {
@@ -44,4 +47,40 @@ public class Meal {
     public void addIngredient(PersonalizedIngredient ingredient){
         ingredients.add(ingredient);
     }
+    public int getCalories(){
+        int counter = 0;
+        for(PersonalizedIngredient ingredient : this.ingredients){
+            counter += ingredient.getCalories();
+        }
+        return counter;
+    }
+    public int getProteins(){
+        int counter = 0;
+        for(PersonalizedIngredient ingredient : this.ingredients){
+            counter += ingredient.getProteins();
+        }
+        return counter;
+    }
+    public int getFats(){
+        int counter = 0;
+        for(PersonalizedIngredient ingredient : this.ingredients){
+            counter += ingredient.getFats();
+        }
+        return counter;
+    }
+    public int getCarbs(){
+        int counter = 0;
+        for(PersonalizedIngredient ingredient : this.ingredients){
+            counter += ingredient.getCarbs();
+        }
+        return counter;
+    }
+    public int getQuantity(){
+        int counter = 0;
+        for(PersonalizedIngredient ingredient : this.ingredients){
+            counter += ingredient.getQuantity();
+        }
+        return counter;
+    }
+
 }

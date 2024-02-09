@@ -1,5 +1,6 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.Impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Exercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.PersonalizedExercise;
@@ -15,6 +16,7 @@ public class PersonalizedExerciseServiceImpl implements PersonalizedExerciseServ
 
 
     @Override
+    @Transactional
     public void addPersonalizedExercise(PersonalizedExercise personalizedExercise) {
         personalizedExerciseRepository.save(personalizedExercise);
     }

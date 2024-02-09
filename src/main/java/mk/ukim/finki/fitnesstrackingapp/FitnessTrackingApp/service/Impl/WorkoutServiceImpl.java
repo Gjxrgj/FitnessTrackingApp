@@ -7,6 +7,7 @@ import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Exercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.PersonalizedExercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Workout;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.PersonalizedExerciseRepository;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.WorkoutRepository;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.ExerciseService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.PersonalizedExerciseService;
@@ -22,6 +23,8 @@ public class WorkoutServiceImpl implements WorkoutService {
     private final ExerciseService exerciseService;
     private final HttpSession session;
     private final PersonalizedExerciseService personalizedExerciseService;
+    private final PersonalizedExerciseRepository personalizedExerciseRepository;
+
 
     @Override
     public List<Workout> getAll() {
@@ -29,6 +32,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
+    @Transactional
     public void addWorkout(String name) {
         workoutRepository.save(
                 Workout.builder()
@@ -59,5 +63,14 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public Workout getById(Long workoutID) {
         return workoutRepository.findById(workoutID).orElseThrow();
+    }
+
+    @Override
+    @Transactional
+    public void removeExercise(Long workoutID, Long exerciseID) {
+        Workout workout = workoutRepository.findById(workoutID).orElseThrow();
+        PersonalizedExercise exercise = personalizedExerciseRepository.findById(exerciseID).orElseThrow();
+        workout.getExercises().remove(exercise);
+        workoutRepository.save(workout);
     }
 }

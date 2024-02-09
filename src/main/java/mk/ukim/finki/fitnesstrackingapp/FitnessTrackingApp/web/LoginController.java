@@ -4,6 +4,7 @@ import jakarta.servlet.http.*;
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.AuthenticationRequest;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.web.auth.AuthenticationService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.UserService;
@@ -32,7 +33,7 @@ public class LoginController {
             @RequestParam String name,
             @RequestParam String password,
             HttpServletResponse response,
-            HttpSession session){
+            HttpSession session) throws BadRequestException {
         AuthenticationRequest request = new AuthenticationRequest(name, password);
         service.authenticate(request, response).getToken();
         session.setAttribute("user", userService.findByName(name));

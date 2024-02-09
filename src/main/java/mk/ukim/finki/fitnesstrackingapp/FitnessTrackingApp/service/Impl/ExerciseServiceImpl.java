@@ -1,5 +1,6 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.Impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Exercise;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.ExerciseRepository;
@@ -21,6 +22,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    @Transactional
     public void addExercise(Exercise exercise) {
         exerciseRepository.save(exercise);
     }

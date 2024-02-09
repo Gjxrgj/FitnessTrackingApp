@@ -9,4 +9,6 @@ public interface MealService {
     void addMeal(String name, String type);
     void AddIngredientToMeal(Long ingredientId, Long mealID, int quantity);
     Meal getById(Long mealID);
+    void removeMealFromDay(Long mealID, Long ingredientID);
+
 }

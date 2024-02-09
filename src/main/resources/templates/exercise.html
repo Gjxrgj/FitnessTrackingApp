@@ -13,7 +13,7 @@
 
 <div th:replace="appBar"></div>
 <div class="container mt-4">
-    <h1 class="center">Exercise</h1>
+    <h1 class="center">Exercises</h1>
     <table class="table">
         <thead>
         <tr>
@@ -34,10 +34,10 @@
                     <div th:if="${exercise.getType().equalsIgnoreCase('bodybuilding')}" class="form-group">
                         Reps: <input type="number" name="reps" class="form-control" required>
                         Sets: <input type="number" name="sets" class="form-control" required>
-                        Weight: <input type="number" name="weight" class="form-control" required>
+                        Weight(kg): <input type="number" name="weight" class="form-control" required>
                     </div>
                     <div th:if="${exercise.getType().equalsIgnoreCase('cardio')}" class="form-group">
-                        Time: <input type="number" name="time" class="form-control" required>
+                        Time(min): <input type="number" name="time" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Add to Workout</button>
                 </form>
@@ -45,7 +45,7 @@
         </tr>
         </tbody>
     </table>
-    <a href="/exercises/addExercise" class="btn btn-primary" role="button">Add Exercise</a>
+    <a href="/exercises/addExercise" class="btn btn-primary" role="button">Add Exercise</a><br>
 </div>
 
 <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->

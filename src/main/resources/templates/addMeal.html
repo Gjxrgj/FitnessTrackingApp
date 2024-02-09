@@ -4,30 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Meal</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div th:replace="appBar"></div>
 
-<h1>Add Meal</h1>
+<!-- Navbar using Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Your App Name</a>
+</nav>
 
-<form action="/meals/addMeal" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+<div class="container mt-4"> <!-- Add Bootstrap container class for spacing -->
 
-    <br>
+    <h1>Add Meal</h1>
 
-    <label for="type">Type:</label>
-    <select id="type" name="type" required>
-        <option value="breakfast">Breakfast</option>
-        <option value="lunch">Lunch</option>
-        <option value="dinner">Dinner</option>
-        <option value="snack">Snack</option>
-    </select>
+    <form action="/meals/addMeal" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="invalid-feedback">Please enter a name.</div>
+        </div>
 
-    <br>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <select class="form-control" id="type" name="type" required>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+            </select>
+            <div class="invalid-feedback">Please select a type.</div>
+        </div>
 
-    <button type="submit">Add Meal</button>
-</form>
+        <button type="submit" class="btn btn-primary">Add Meal</button>
+    </form>
+
+</div>
+
+<!-- Add Bootstrap JS and Popper.js for certain Bootstrap features -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

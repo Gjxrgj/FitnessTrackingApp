@@ -19,20 +19,30 @@
         <tr>
             <th>Name</th>
             <th>Quantity (g)</th>
-            <th>Calories (g)</th>
+            <th>Calories (kcal)</th>
             <th>Proteins (g)</th>
             <th>Fats (g)</th>
             <th>Carbs (g)</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="ingredient : ${meal.getIngredients()}">
             <td><span th:text="${ingredient.getIngredient().getName()}"></span></td>
             <td><span th:text="${ingredient.getQuantity()}"></span></td>
-            <td><span th:text="${ingredient.getIngredient().getCalories()}"></span></td>
-            <td><span th:text="${ingredient.getIngredient().getProtein()}"></span></td>
-            <td><span th:text="${ingredient.getIngredient().getFats()}"></span></td>
-            <td><span th:text="${ingredient.getIngredient().getCarbs()}"></span></td>
+            <td><span th:text="${ingredient.getCalories()}"></span></td>
+            <td><span th:text="${ingredient.getProteins()}"></span></td>
+            <td><span th:text="${ingredient.getFats()}"></span></td>
+            <td><span th:text="${ingredient.getCarbs()}"></span></td>
+            <td>
+                <form th:action="@{/meals/removeIngredient/{mealID}(mealID=${meal.mID})}" method="post">
+                    <input type="hidden" name="ingredientID" th:value="${ingredient.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm float-right">
+                        Remove
+                    </button>
+                </form>
+            </td>
+
         </tr>
         </tbody>
     </table>

@@ -1,44 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workouts List</title>
+    <title>Workout info</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 </head>
 <body>
-
 <div th:replace="appBar"></div>
 
 <div class="container mt-4">
-    <h2>Workouts List</h2>
-
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-            <th>Workout Name</th>
-            <th>Exercises</th>
-            <th>Actions</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Weight</th>
+            <th>Time</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="workout : ${workoutList}">
-            <td><span th:text="${workout.name}"></span></td>
+        <tr th:each="exercise : ${workout.getExercises()}">
+            <td><span th:text="${exercise.getExercise().getName()}"></span></td>
+            <td><span th:text="${exercise.getExercise().getType()}"></span></td>
+            <td><span th:text="${exercise.getSets()}"></span></td>
+            <td><span th:text="${exercise.getReps()}"></span></td>
+            <td><span th:text="${exercise.getWeight()}"></span></td>
+            <td><span th:text="${exercise.getTime()}"></span></td>
             <td>
-                <a th:href="@{/workouts/{workoutID}(workoutID=${workout.wID})}" class="btn btn-primary">View Exercises</a>
-            </td>
-            <td>
-                <a th:href="@{/exercises/{workoutID}(workoutID=${workout.wID})}" class="btn btn-success">Add Exercise to Workout</a><br>
-                <a th:href="@{/day/workout/{workoutID}(workoutID=${workout.wID})}" class="btn btn-info">Add Workout to Day</a>
+                <form th:action="@{/workouts/removeExercise/{workoutID}(workoutID=${workout.wID})}" method="post">
+                    <input type="hidden" name="exerciseID" th:value="${exercise.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm float-right">
+                        Remove
+                    </button>
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
-
-    <a href="/workouts/addWorkout" class="btn btn-primary" type="button">Add Workout</a>
 </div>
 
 <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->

@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "Workout")
+@Table(name = "workout")
 public class Workout {
 
     @Id
@@ -20,6 +20,7 @@ public class Workout {
     private Long wID;
 
     @ManyToOne
+    @JoinColumn(name = "uID")
     private User user;
 
     @Column(name="name")
@@ -28,7 +29,12 @@ public class Workout {
     @Column(name = "duration")
     private int duration;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "workouthasexercise",
+            joinColumns = @JoinColumn(name = "wID"),
+            inverseJoinColumns = @JoinColumn(name = "eID")
+    )
     private List<PersonalizedExercise> exercises;
 
     public Workout() {

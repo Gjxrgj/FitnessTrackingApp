@@ -10,4 +10,5 @@ public interface WorkoutService {
 
     void addExerciseToWorkout(Long workoutID, Long exerciseID, Integer sets, Integer reps, Integer weight, Integer time);
     Workout getById(Long workoutID);
+    void removeExercise(Long workoutID,Long exerciseID);
 }
