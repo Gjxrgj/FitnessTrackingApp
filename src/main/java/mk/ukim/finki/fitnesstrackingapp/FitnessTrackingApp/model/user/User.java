@@ -26,7 +26,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "uID")
+    @Column(name = "uid")
     private Long uID;
 
     @Column(name = "name", nullable = false)
@@ -61,7 +61,7 @@ public class User implements UserDetails {
     private List<WorkoutProgram> workoutPrograms= new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "row")
+    @Column(name = "role")
     private Role role;
 
     @Override

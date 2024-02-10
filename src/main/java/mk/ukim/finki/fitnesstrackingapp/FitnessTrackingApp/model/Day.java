@@ -11,13 +11,14 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "_day")
 public class Day {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dID")
+    @Column(name = "did")
     private Long dID;
 
     @Column(name = "date", nullable = false)
@@ -27,22 +28,18 @@ public class Day {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "dayhasmeal",
-            joinColumns = @JoinColumn(name = "dID"),
-            inverseJoinColumns = @JoinColumn(name = "mID")
+            joinColumns = @JoinColumn(name = "did"),
+            inverseJoinColumns = @JoinColumn(name = "mid")
     )
-    private List<Meal> meals;
+    private List<Meal> meals = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "dayhasworkout",
-            joinColumns = @JoinColumn(name = "dID"),
-            inverseJoinColumns = @JoinColumn(name = "wID")
+            joinColumns = @JoinColumn(name = "did"),
+            inverseJoinColumns = @JoinColumn(name = "wid")
     )
-    private List<Workout> workouts;
-
-    public Day() {
-        workouts = new ArrayList<>();
-    }
+    private List<Workout> workouts = new ArrayList<>();
 
     public void addWorkoutToDay(Workout workout){
         workouts.add(workout);

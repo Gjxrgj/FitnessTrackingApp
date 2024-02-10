@@ -36,12 +36,17 @@ public class AuthenticationService {
                 .height(request.getHeight())
                 .weight(request.getWeight())
                 .days(new ArrayList<>())
+                .workoutPrograms(new ArrayList<>())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
+
         Day day = Day.builder()
                 .date(LocalDate.now())
+                .meals(new ArrayList<>())
+                .workouts(new ArrayList<>())
                 .build();
+
         dayRepository.save(day);
         user.addDay(day);
         repository.save(user);
