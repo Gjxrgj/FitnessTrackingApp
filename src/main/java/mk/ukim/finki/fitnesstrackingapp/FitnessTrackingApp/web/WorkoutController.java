@@ -13,7 +13,7 @@ public class WorkoutController {
     private final WorkoutService workoutService;
     @GetMapping
     public String getWorkoutsPage(Model model){
-        model.addAttribute("workoutList", workoutService.getAll());
+        model.addAttribute("workoutList", workoutService.getAllByUserInSession());
         return "workouts";
     }
     @GetMapping("/{workoutID}")

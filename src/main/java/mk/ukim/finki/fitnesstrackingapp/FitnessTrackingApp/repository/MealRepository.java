@@ -14,6 +14,5 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findAll();
     List<Meal> findAllByOrderByNameAsc();
     List<Meal> findAllByUserOrderByNameAsc(User user);
-
-
+    List<Meal> findAllByUser (User user);
 }

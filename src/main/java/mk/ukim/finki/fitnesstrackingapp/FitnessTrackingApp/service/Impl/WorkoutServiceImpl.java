@@ -11,6 +11,7 @@ import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.Personaliz
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.WorkoutRepository;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.ExerciseService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.PersonalizedExerciseService;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.UserService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.WorkoutService;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,17 @@ public class WorkoutServiceImpl implements WorkoutService {
     private final HttpSession session;
     private final PersonalizedExerciseService personalizedExerciseService;
     private final PersonalizedExerciseRepository personalizedExerciseRepository;
-
+    private final UserService userService;
 
     @Override
     public List<Workout> getAll() {
         return workoutRepository.findAll();
+    }
+
+    @Override
+    public List<Workout> getAllByUserInSession() {
+        User user = userService.findByName(((User) session.getAttribute("user")).getName());
+        return workoutRepository.findAllByUser(user);
     }
 
     @Override

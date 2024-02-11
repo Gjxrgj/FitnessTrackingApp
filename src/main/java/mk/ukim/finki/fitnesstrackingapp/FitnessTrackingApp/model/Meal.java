@@ -16,7 +16,8 @@ import java.util.List;
 public class Meal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_meal_seq")
+    @SequenceGenerator(name = "_meal_seq", sequenceName = "_meal_seq", allocationSize = 1)
     @Column(name = "mID")
     private Long mID;
 
@@ -34,7 +35,7 @@ public class Meal {
     @JoinTable(
             name = "mealhasingredient",
             joinColumns = @JoinColumn(name = "mID"),
-            inverseJoinColumns = @JoinColumn(name = "iID")
+            inverseJoinColumns = @JoinColumn(name = "piID")
     )
     private List<PersonalizedIngredient> ingredients;
 

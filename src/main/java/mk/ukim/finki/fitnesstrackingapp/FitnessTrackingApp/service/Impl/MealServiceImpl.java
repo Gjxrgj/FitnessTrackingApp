@@ -14,6 +14,7 @@ import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository.UserReposi
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.IngredientService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.MealService;
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.PersonalizedIngredientService;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class MealServiceImpl implements MealService {
     private final MealRepository mealRepository;
     private final IngredientsRepository ingredientsRepository;
     private final PersonalizedIngredientService personalizedIngredientService;
+    private final PersonalizedIngredientRepository personalizedIngredientRepository;
+    private final UserService userService;
     private final HttpSession session;
     @Override
     public List<Meal> getAll() {
@@ -46,7 +49,9 @@ public class MealServiceImpl implements MealService {
     public void AddIngredientToMeal(Long ingredientId, Long mealID, int quantity) {
         Ingredient ingredient = ingredientsRepository.findById(ingredientId).orElseThrow();
         Meal meal = mealRepository.findById(mealID).orElseThrow();
-        PersonalizedIngredient personalizedIngredient = new PersonalizedIngredient(ingredient, quantity);
+        PersonalizedIngredient personalizedIngredient = new PersonalizedIngredient();
+        personalizedIngredient.setIngredient(ingredient);
+        personalizedIngredient.setQuantity(quantity);
         personalizedIngredientService.addPersonalizedIngredient(personalizedIngredient);
         meal.addIngredient(personalizedIngredient);
         mealRepository.save(meal);
@@ -63,6 +68,13 @@ public class MealServiceImpl implements MealService {
         PersonalizedIngredient ingredient = personalizedIngredientService.getById(ingredientID).orElseThrow();
         Meal meal = mealRepository.findById(mealID).orElseThrow();
         meal.getIngredients().remove(ingredient);
+        personalizedIngredientRepository.delete(ingredient);
         mealRepository.save(meal);
+    }
+
+    @Override
+    public List<Meal> getAllByUserInSession() {
+        User user = userService.findByName(((User) session.getAttribute("user")).getName());
+        return mealRepository.findAllByUser(user);
     }
 }

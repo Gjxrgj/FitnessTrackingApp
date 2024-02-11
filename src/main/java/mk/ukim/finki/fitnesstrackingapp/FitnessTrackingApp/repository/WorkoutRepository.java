@@ -1,6 +1,7 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.repository;
 
 import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.Workout;
+import mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model.user.User;
 import org.hibernate.type.descriptor.converter.spi.JpaAttributeConverter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     @Override
     List<Workout> findAll();
+
+    List<Workout> findAllByUser(User user);
 }

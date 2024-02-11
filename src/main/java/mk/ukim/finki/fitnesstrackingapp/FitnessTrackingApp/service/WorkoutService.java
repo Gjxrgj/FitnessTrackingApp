@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface WorkoutService {
     List<Workout> getAll();
+    List<Workout> getAllByUserInSession();
     void addWorkout(String name);
 
     void addExerciseToWorkout(Long workoutID, Long exerciseID, Integer sets, Integer reps, Integer weight, Integer time);

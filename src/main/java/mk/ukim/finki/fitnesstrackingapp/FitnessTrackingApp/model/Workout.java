@@ -15,7 +15,8 @@ import java.util.List;
 public class Workout {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_workout_seq")
+    @SequenceGenerator(name = "_workout_seq", sequenceName = "_workout_seq", allocationSize = 1)
     @Column(name = "wID")
     private Long wID;
 
@@ -33,7 +34,7 @@ public class Workout {
     @JoinTable(
             name = "workouthasexercise",
             joinColumns = @JoinColumn(name = "wID"),
-            inverseJoinColumns = @JoinColumn(name = "eID")
+            inverseJoinColumns = @JoinColumn(name = "peID")
     )
     private List<PersonalizedExercise> exercises;
 

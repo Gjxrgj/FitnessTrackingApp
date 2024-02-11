@@ -14,7 +14,8 @@ import java.util.List;
 public class WorkoutProgram {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_workout_program_seq")
+    @SequenceGenerator(name = "_workout_program_seq", sequenceName = "_workout_program_seq", allocationSize = 1)
     @Column(name = "wpID")
     private Long wpID;
 

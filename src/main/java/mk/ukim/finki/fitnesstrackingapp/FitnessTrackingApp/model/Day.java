@@ -1,6 +1,7 @@
 package mk.ukim.finki.fitnesstrackingapp.FitnessTrackingApp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,7 +18,8 @@ import java.util.List;
 public class Day {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "day_seq")
+    @SequenceGenerator(name = "day_seq", sequenceName = "_day_seq", allocationSize = 1)
     @Column(name = "did")
     private Long dID;
 

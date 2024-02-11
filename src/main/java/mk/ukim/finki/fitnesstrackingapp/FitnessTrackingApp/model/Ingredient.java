@@ -12,7 +12,8 @@ import lombok.*;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_ingredient_seq")
+    @SequenceGenerator(name = "_ingredient_seq", sequenceName = "_ingredient_seq", allocationSize = 1)
     @Column(name = "iID")
     private Long iID;
 

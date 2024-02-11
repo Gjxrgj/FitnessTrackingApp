@@ -44,7 +44,7 @@
             <td><span th:text="${meal.getQuantity()}"></span></td>
             <td>
                 <a th:href="@{/ingredients/{mealID}(mealID=${meal.mID})}" class="btn btn-success" role="button">Add Ingredient</a><br><br>
-                <a th:href="@{/day/meal/{mealID}(mealID=${meal.mID})}" class="btn btn-info" role="button">Add Meal</a>
+                <a th:href="@{/day/meal/{mealID}(mealID=${meal.mID})}" class="btn btn-info" role="button">Add Meal To Day</a>
             </td>
         </tr>
         </tbody>

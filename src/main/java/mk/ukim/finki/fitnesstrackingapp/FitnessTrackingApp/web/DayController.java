@@ -19,7 +19,7 @@ public class DayController {
     private final MealService mealService;
     private final DayService dayService;
     @GetMapping("/workout/{workoutID}")
-    public String addWorkoutToDay(@PathVariable Long workoutID) throws BadRequestException {
+    public String addWorkoutToDay(@PathVariable Long workoutID){
         dayService.addWorkoutToDay(workoutID);
         return "redirect:/home";
     }

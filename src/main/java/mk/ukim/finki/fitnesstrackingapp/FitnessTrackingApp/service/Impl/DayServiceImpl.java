@@ -59,7 +59,6 @@ public class DayServiceImpl implements DayService {
         Day day = user.getToday();
         day.addWorkoutToDay(workoutService.getById(workoutID));
         dayRepository.save(day);
-
     }
 
     @Override

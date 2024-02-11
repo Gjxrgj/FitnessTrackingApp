@@ -12,7 +12,8 @@ import lombok.*;
 public class Exercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_exercise_seq")
+    @SequenceGenerator(name = "_exercise_seq", sequenceName = "_exercise_seq", allocationSize = 1)
     @Column(name = "eID")
     private Long eID;
 

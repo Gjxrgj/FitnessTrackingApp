@@ -14,7 +14,7 @@ public class MealController {
 
     @GetMapping
     public String getMealPage(Model model){
-        model.addAttribute("mealsList", mealService.getAll());
+        model.addAttribute("mealsList", mealService.getAllByUserInSession());
         return "meals";
     }
     @GetMapping("/info/{mealID}")

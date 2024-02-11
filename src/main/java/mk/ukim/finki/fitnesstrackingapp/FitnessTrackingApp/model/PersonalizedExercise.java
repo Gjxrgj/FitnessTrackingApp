@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class PersonalizedExercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_personalized_exercise_seq")
+    @SequenceGenerator(name = "_personalized_exercise_seq", sequenceName = "_personalized_exercise_seq", allocationSize = 1)
     @Column(name = "peID")
     private Long id;
 

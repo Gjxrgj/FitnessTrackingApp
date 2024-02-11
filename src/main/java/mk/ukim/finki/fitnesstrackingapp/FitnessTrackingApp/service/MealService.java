@@ -11,4 +11,5 @@ public interface MealService {
     Meal getById(Long mealID);
     void removeMealFromDay(Long mealID, Long ingredientID);
 
+    List<Meal> getAllByUserInSession();
 }

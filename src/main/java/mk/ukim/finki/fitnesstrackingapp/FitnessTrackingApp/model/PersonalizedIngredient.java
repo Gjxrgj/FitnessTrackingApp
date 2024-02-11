@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "personalizedingredient")
 public class PersonalizedIngredient {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "piID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "_personalized_ingredient_seq")
+    @SequenceGenerator(name = "_personalized_ingredient_seq", sequenceName = "_personalized_ingredient_seq", allocationSize = 1)
+    @Column(name = "piid")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "iID")
+    @JoinColumn(name = "iid")
     private Ingredient ingredient;
 
     @Column(name = "quantity")
